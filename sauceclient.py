@@ -37,9 +37,9 @@ class SauceClient(object):
         self.usage = Usage(self)
 
     def make_headers(self):
-        base64string = base64.encodestring(
+        base64string = base64.encodebytes(
             ('%s:%s' % (self.sauce_username, self.sauce_access_key)).encode("UTF-8")
-        )[:-1]
+        ).decode()[:-1]
         headers = {
             'Authorization': 'Basic %s' % base64string,
             'Content-Type': 'application/json',
@@ -55,7 +55,7 @@ class SauceClient(object):
         if response.status != 200:
             raise Exception('%s: %s.\nSauce Status NOT OK' %
                             (response.status, response.reason))
-        return json_data
+        return json_data.decode()
 
 
 class Jobs(object):
