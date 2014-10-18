@@ -38,7 +38,7 @@ class SauceClient(object):
 
     def make_headers(self):
         base64string = base64.encodestring(
-            '%s:%s' % (self.sauce_username, self.sauce_access_key)
+            ('%s:%s' % (self.sauce_username, self.sauce_access_key)).encode("UTF-8")
         )[:-1]
         headers = {
             'Authorization': 'Basic %s' % base64string,
